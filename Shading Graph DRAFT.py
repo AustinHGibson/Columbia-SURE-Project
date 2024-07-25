@@ -32,10 +32,10 @@ env2 = dataset2.env
 ob_size = env1.observation_space.shape[0]
 act_size = env1.action_space.n
 
-all_performances_task1 = np.empty(0)
-all_performances_task2 = np.empty(0)
+all_performances_task1 = []
+all_performances_task2 = []
 
-for s in range(1):
+for s in range(10):
     
     class Net(nn.Module):
         def __init__(self, num_h):
@@ -193,5 +193,11 @@ for s in range(1):
             print('                    Performance(T2): {:0.5f}'.format(perf))
             print('')
             running_loss = 0.0
-            
+    all_performances_task1.append(performances_task1)
+    all_performances_task2.append(performances_task2)
+
+print(np.asarray(all_performances_task1), np.asarray(all_performances_task2))
+np.save('./data/training-task1task2_no-replay_performance-task1', all_performances_task1)
+np.save('./data/training-task1task2_no-replay_performance-task2', all_performances_task2)
+
     #Add to the matrix.
